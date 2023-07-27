@@ -1,9 +1,17 @@
 package net.sky.antmod.entity.custom;
 
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
@@ -26,19 +34,17 @@ public class AntEntity extends Monster implements IAnimatable {
         if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.chomper.walk", true));
             return PlayState.CONTINUE;
-        }f
+        }
 
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.chomper.idle", true));
         return PlayState.CONTINUE;
 
-    @Override
-    public void registerControllers(AnimationData data) {
+        public void registerControllers(AnimationData) {
         data.addAnimationController(new AnimationController(this, "controller",
                 0, this::predicate));
 
     }
 
-    @Override
     public AnimationFactory getFactory() {
         return factory;
     }
